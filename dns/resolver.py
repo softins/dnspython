@@ -1247,6 +1247,7 @@ class Resolver(BaseResolver):
         source_port: int = 0,
         lifetime: Optional[float] = None,
         search: Optional[bool] = None,
+        ignore_trailing: Optional[bool] = False,
     ) -> Answer:  # pylint: disable=arguments-differ
         """Query nameservers to find the answer to the question.
 
@@ -1326,6 +1327,7 @@ class Resolver(BaseResolver):
                         source=source,
                         source_port=source_port,
                         max_size=tcp,
+                        ignore_trailing=ignore_trailing,
                     )
                 except Exception as ex:
                     (_, done) = resolution.query_result(None, ex)
@@ -1348,6 +1350,7 @@ class Resolver(BaseResolver):
         raise_on_no_answer: bool = True,
         source_port: int = 0,
         lifetime: Optional[float] = None,
+        ignore_trailing: Optional[bool] = False,
     ) -> Answer:  # pragma: no cover
         """Query nameservers to find the answer to the question.
 
@@ -1371,6 +1374,7 @@ class Resolver(BaseResolver):
             source_port,
             lifetime,
             True,
+            ignore_trailing,
         )
 
     def resolve_address(self, ipaddr: str, *args: Any, **kwargs: Any) -> Answer:
@@ -1552,6 +1556,7 @@ def resolve(
     source_port: int = 0,
     lifetime: Optional[float] = None,
     search: Optional[bool] = None,
+    ignore_trailing: Optional[bool] = False,
 ) -> Answer:  # pragma: no cover
     """Query nameservers to find the answer to the question.
 
@@ -1572,6 +1577,7 @@ def resolve(
         source_port,
         lifetime,
         search,
+        ignore_trailing,
     )
 
 
@@ -1584,6 +1590,7 @@ def query(
     raise_on_no_answer: bool = True,
     source_port: int = 0,
     lifetime: Optional[float] = None,
+    ignore_trailing: Optional[bool] = False,
 ) -> Answer:  # pragma: no cover
     """Query nameservers to find the answer to the question.
 
@@ -1605,6 +1612,7 @@ def query(
         source_port,
         lifetime,
         True,
+        ignore_trailing,
     )
 
 
@@ -1785,6 +1793,7 @@ def resolve_at(
     port: int = 53,
     family: int = socket.AF_UNSPEC,
     resolver: Optional[Resolver] = None,
+    ignore_trailing: Optional[bool] = False,
 ) -> Answer:
     """Query nameservers to find the answer to the question.
 
@@ -1809,6 +1818,7 @@ def resolve_at(
         source_port,
         lifetime,
         search,
+        ignore_trailing,
     )
 
 
